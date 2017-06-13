@@ -11,9 +11,13 @@ let package = Package(
     name: "CommandLineTool",
     products: [
         .executable(name: "CommandLineTool", targets: ["CommandLineTool"]),
+        .library(name: "CommandLineToolCore", targets: ["CommandLineToolCore"]),
     ],
     dependencies: [],
     targets: [
-        .target(name: "CommandLineTool", dependencies: []),
+        .target(name: "CommandLineTool", dependencies: [
+            .target(name: "CommandLineToolCore"),
+        ]),
+        .target(name: "CommandLineToolCore", dependencies: []),
     ]
 )

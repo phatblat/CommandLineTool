@@ -1,4 +1,4 @@
-import Foundation
+import CommandLineToolCore
 
 let tool = CommandLineTool()
 
