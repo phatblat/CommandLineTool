@@ -1,6 +1,6 @@
 # CommandLineTool
 
-A description of this package.
+Simple command line executable swift package
 
 ## License
 
