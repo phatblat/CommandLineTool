@@ -25,5 +25,6 @@ let package = Package(
                 .target(name: "CommandLineToolCore"),
             ]
         ),
-    ]
+    ],
+    swiftLanguageVersions: [4]
 )
