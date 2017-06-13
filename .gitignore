@@ -1,0 +1,12 @@
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
+.DS_Store
+*.xccheckout
+*.xcscmblueprint
+xcuserdata
+Carthage/
+Pods/
+.rubygems/
+bin/
