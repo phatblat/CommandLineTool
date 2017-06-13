@@ -19,5 +19,11 @@ let package = Package(
             .target(name: "CommandLineToolCore"),
         ]),
         .target(name: "CommandLineToolCore", dependencies: []),
+        .testTarget(
+            name: "CommandLineToolCoreTests",
+            dependencies: [
+                .target(name: "CommandLineToolCore"),
+            ]
+        ),
     ]
 )
