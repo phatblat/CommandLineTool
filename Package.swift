@@ -15,10 +15,10 @@ let package = Package(
     ],
     dependencies: [],
     targets: [
+        .target(name: "CommandLineToolCore", dependencies: []),
         .target(name: "CommandLineTool", dependencies: [
             .target(name: "CommandLineToolCore"),
         ]),
-        .target(name: "CommandLineToolCore", dependencies: []),
         .testTarget(
             name: "CommandLineToolCoreTests",
             dependencies: [
