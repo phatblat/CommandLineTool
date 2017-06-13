@@ -13,7 +13,13 @@ let package = Package(
         .executable(name: "CommandLineTool", targets: ["CommandLineTool"]),
         .library(name: "CommandLineToolCore", targets: ["CommandLineToolCore"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(
+            url: "https://github.com/apple/swift-package-manager.git",
+            .branch("master")
+            // from: "swift-3.1-DEVELOPMENT-SNAPSHOT-2017-06-12-a"
+        ),
+    ],
     targets: [
         .target(name: "CommandLineToolCore", dependencies: []),
         .target(name: "CommandLineTool", dependencies: [
@@ -23,6 +29,8 @@ let package = Package(
             name: "CommandLineToolCoreTests",
             dependencies: [
                 .target(name: "CommandLineToolCore"),
+                // Utilities in SwiftPM.Basic for TemporaryFile
+                "SwiftPM",
             ]
         ),
     ],

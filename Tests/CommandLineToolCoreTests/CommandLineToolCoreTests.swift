@@ -1,25 +1,15 @@
 import CommandLineToolCore
+import Basic
 import XCTest
 import Foundation
 
 class CommandLineToolCoreTests: XCTestCase {
     func testTool() {
-        // Redirect stdout
-        let template = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("file.XXXXXX")
-        // Fill buffer with a C string representing the local file system path.
-        var buffer = [Int8](repeating: 0, count: Int(PATH_MAX))
-        (template as NSURL).getFileSystemRepresentation(&buffer, maxLength: buffer.count)
-        // Create unique file name (and open file):
-        let fd = mkstemp(&buffer)
-        guard fd != -1 else {
-            XCTFail("Error: " + String(describing: strerror(errno)))
-            return
-        }
+        let tempFile = try! TemporaryFile() // from SwiftPM.Basic
+        print("Temp file: \(tempFile)")
 
-        // Create URL from file system string
-        let url = URL(fileURLWithFileSystemRepresentation: buffer, isDirectory: false, relativeTo: nil)
-        print("Temp file: \(url.path)")
-        freopen(buffer, "a+", stdout)
+        // Redirect stdout to temp file
+        freopen(tempFile.path.asString.cString(using: .utf8), "a+", stdout)
 
         let tool = CommandLineTool()
         try! tool.run()
@@ -27,7 +17,7 @@ class CommandLineToolCoreTests: XCTestCase {
         // Flush stdout to file
         fclose(stdout)
 
-        let output = try! String(contentsOf: url, encoding: .utf8)
+        let output = try! String(contentsOfFile: tempFile.path.asString, encoding: .utf8)
         XCTAssertEqual(output, "Hello world!\n")
     }
 
